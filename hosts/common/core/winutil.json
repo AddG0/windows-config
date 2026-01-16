@@ -1,0 +1,27 @@
+{
+  "$schema": "https://christitus.com/win/schema.json",
+  "WPFTweaks": {
+    "WPFTweaksAH": true,
+    "WPFTweaksDVR": true,
+    "WPFTweaksHiber": true,
+    "WPFTweaksHome": true,
+    "WPFTweaksLoc": true,
+    "WPFTweaksOO": true,
+    "WPFTweaksServices": true,
+    "WPFTweaksTele": true,
+    "WPFTweaksWifi": true,
+    "WPFTweaksDiskCleanup": true,
+    "WPFTweaksDeleteTempFiles": true,
+    "WPFTweaksEndTaskOnTaskbar": true,
+    "WPFTweaksRemoveOnedrive": true,
+    "WPFTweaksDisableNotifications": false,
+    "WPFTweaksRightClickMenu": true,
+    "WPFTweaksRemoveCopilot": true
+  },
+  "WPFFeature": {
+    "WPFFeaturesdotnet": true,
+    "WPFFeatureshyperv": false,
+    "WPFFeatureswsl": false,
+    "WPFFeaturessandbox": false
+  }
+}

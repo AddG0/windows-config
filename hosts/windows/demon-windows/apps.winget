@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+# Gaming PC specific applications
+properties:
+  configurationVersion: 0.2.0
+  resources:
+    # Gaming
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Steam
+      settings:
+        id: Valve.Steam
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Valorant
+      settings:
+        id: Riot.Valorant.AP
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Discord
+      settings:
+        id: Discord.Discord
+        source: winget
+
+    # GPU & Hardware
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: NVIDIA GeForce Experience
+      settings:
+        id: Nvidia.GeForceExperience
+        source: winget
+
+    # Streaming/Recording
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: OBS Studio
+      settings:
+        id: OBSProject.OBSStudio
+        source: winget
+
+    # Browser
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Google Chrome
+      settings:
+        id: Google.Chrome
+        source: winget

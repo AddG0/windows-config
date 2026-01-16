@@ -1,0 +1,176 @@
+# GlazeWM Configuration
+# https://github.com/glzr-io/glazewm
+
+general:
+  # Commands to run when GlazeWM starts
+  startup_commands:
+    - 'shell-exec zebar'
+
+  # Focus follows mouse
+  focus_follows_cursor: false
+  cursor_follows_focus: false
+
+  # Toggle floating by dragging with alt
+  toggle_floating_by_dragging: true
+
+gaps:
+  inner_gap: "8px"
+  outer_gap:
+    top: "40px"    # Space for Zebar
+    bottom: "8px"
+    left: "8px"
+    right: "8px"
+
+window_effects:
+  focused_window:
+    border:
+      enabled: true
+      color: "#89b4fa"
+  other_windows:
+    border:
+      enabled: true
+      color: "#45475a"
+
+window_behavior:
+  initial_state: "tiling"
+  state_defaults:
+    floating:
+      centered: true
+      shown_on_top: true
+    fullscreen:
+      maximized: false
+      shown_on_top: true
+
+workspaces:
+  - name: "1"
+    display_name: "󰲠"
+  - name: "2"
+    display_name: "󰲢"
+  - name: "3"
+    display_name: "󰲤"
+  - name: "4"
+    display_name: "󰲦"
+  - name: "5"
+    display_name: "󰲨"
+  - name: "6"
+    display_name: "󰲪"
+  - name: "7"
+    display_name: "󰲬"
+  - name: "8"
+    display_name: "󰲮"
+  - name: "9"
+    display_name: "󰲰"
+
+window_rules:
+  # Floating rules
+  - commands: ["set-floating"]
+    match:
+      - window_process: { equals: "1Password" }
+      - window_process: { equals: "Steam" }
+      - window_class: { regex: ".*Riot.*" }
+      - window_title: { regex: ".*Picture-in-Picture.*" }
+      - window_title: { regex: ".*Settings.*" }
+
+  # Ignore rules (don't manage these windows)
+  - commands: ["ignore"]
+    match:
+      - window_process: { equals: "zebar" }
+      - window_process: { equals: "Rainmeter" }
+      - window_class: { equals: "TranslucentTB" }
+
+keybindings:
+  # Focus windows (vim keys)
+  - commands: ["focus --direction left"]
+    bindings: ["alt+h"]
+  - commands: ["focus --direction right"]
+    bindings: ["alt+l"]
+  - commands: ["focus --direction up"]
+    bindings: ["alt+k"]
+  - commands: ["focus --direction down"]
+    bindings: ["alt+j"]
+
+  # Move windows
+  - commands: ["move --direction left"]
+    bindings: ["alt+shift+h"]
+  - commands: ["move --direction right"]
+    bindings: ["alt+shift+l"]
+  - commands: ["move --direction up"]
+    bindings: ["alt+shift+k"]
+  - commands: ["move --direction down"]
+    bindings: ["alt+shift+j"]
+
+  # Resize windows
+  - commands: ["resize --width -50px"]
+    bindings: ["alt+ctrl+h"]
+  - commands: ["resize --width +50px"]
+    bindings: ["alt+ctrl+l"]
+  - commands: ["resize --height -50px"]
+    bindings: ["alt+ctrl+k"]
+  - commands: ["resize --height +50px"]
+    bindings: ["alt+ctrl+j"]
+
+  # Workspace switching
+  - commands: ["focus --workspace 1"]
+    bindings: ["alt+1"]
+  - commands: ["focus --workspace 2"]
+    bindings: ["alt+2"]
+  - commands: ["focus --workspace 3"]
+    bindings: ["alt+3"]
+  - commands: ["focus --workspace 4"]
+    bindings: ["alt+4"]
+  - commands: ["focus --workspace 5"]
+    bindings: ["alt+5"]
+  - commands: ["focus --workspace 6"]
+    bindings: ["alt+6"]
+  - commands: ["focus --workspace 7"]
+    bindings: ["alt+7"]
+  - commands: ["focus --workspace 8"]
+    bindings: ["alt+8"]
+  - commands: ["focus --workspace 9"]
+    bindings: ["alt+9"]
+
+  # Move to workspace
+  - commands: ["move --workspace 1"]
+    bindings: ["alt+shift+1"]
+  - commands: ["move --workspace 2"]
+    bindings: ["alt+shift+2"]
+  - commands: ["move --workspace 3"]
+    bindings: ["alt+shift+3"]
+  - commands: ["move --workspace 4"]
+    bindings: ["alt+shift+4"]
+  - commands: ["move --workspace 5"]
+    bindings: ["alt+shift+5"]
+  - commands: ["move --workspace 6"]
+    bindings: ["alt+shift+6"]
+  - commands: ["move --workspace 7"]
+    bindings: ["alt+shift+7"]
+  - commands: ["move --workspace 8"]
+    bindings: ["alt+shift+8"]
+  - commands: ["move --workspace 9"]
+    bindings: ["alt+shift+9"]
+
+  # Layout controls
+  - commands: ["toggle-tiling-direction"]
+    bindings: ["alt+v"]
+  - commands: ["toggle-floating"]
+    bindings: ["alt+space"]
+  - commands: ["toggle-fullscreen"]
+    bindings: ["alt+f"]
+
+  # Close window
+  - commands: ["close"]
+    bindings: ["alt+q"]
+
+  # Applications
+  - commands: ["shell-exec wt"]
+    bindings: ["alt+enter"]
+  - commands: ["shell-exec explorer"]
+    bindings: ["alt+e"]
+
+  # Reload config
+  - commands: ["wm-reload-config"]
+    bindings: ["alt+shift+r"]
+
+  # Exit GlazeWM
+  - commands: ["wm-exit"]
+    bindings: ["alt+shift+e"]

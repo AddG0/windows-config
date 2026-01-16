@@ -1,0 +1,26 @@
+[user]
+    name = addg
+    email = {{ .email }}
+
+[core]
+    autocrlf = true
+    editor = code --wait
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true
+
+[credential]
+    helper = manager
+
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    lg = log --oneline --graph --decorate

@@ -1,0 +1,22 @@
+# Chezmoi configuration
+# This template is processed during `chezmoi init`
+
+{{- $email := promptStringOnce . "email" "Git email address" -}}
+
+[data]
+    hostname = {{ .chezmoi.hostname | quote }}
+    username = "addg"
+    email = {{ $email | quote }}
+
+    # Feature flags - enable/disable modules
+    [data.features]
+        ricing = true      # GlazeWM, Zebar, etc.
+        development = false # Dev tools
+        gaming = true      # Gaming optimizations
+
+[onepassword]
+    prompt = false
+
+[edit]
+    command = "code"
+    args = ["--wait"]

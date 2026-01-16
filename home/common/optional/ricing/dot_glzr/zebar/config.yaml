@@ -1,0 +1,142 @@
+# Zebar Configuration
+# https://github.com/glzr-io/zebar
+
+# Global window configuration
+window:
+  # Position at top of screen
+  anchor: "top"
+  offset_x: "8px"
+  offset_y: "8px"
+  width: "100% - 16px"
+  height: "32px"
+
+  # Window styling
+  transparent: true
+  resizable: false
+  shown_on_top: true
+  focused_on_open: false
+
+# Providers (data sources)
+providers:
+  glazewm:
+    type: "glazewm"
+  cpu:
+    type: "cpu"
+    refresh_interval: 2000
+  memory:
+    type: "memory"
+    refresh_interval: 2000
+  battery:
+    type: "battery"
+    refresh_interval: 30000
+  date:
+    type: "date"
+    format: "EEE d MMM"
+    refresh_interval: 60000
+  time:
+    type: "date"
+    format: "HH:mm"
+    refresh_interval: 1000
+  network:
+    type: "network"
+    refresh_interval: 5000
+
+# Bar layout
+components:
+  - type: "row"
+    styles:
+      justify_content: "space_between"
+      align_items: "center"
+      height: "100%"
+      padding: "0 12px"
+      background: "#1e1e2ecc"
+      border_radius: "8px"
+      font_family: "JetBrainsMono Nerd Font"
+      font_size: "13px"
+      color: "#cdd6f4"
+
+    children:
+      # Left - Workspaces
+      - type: "row"
+        styles:
+          gap: "4px"
+        children:
+          - type: "template"
+            template: |
+              {{#each glazewm.workspaces}}
+                <span style="
+                  padding: 4px 10px;
+                  border-radius: 4px;
+                  background: {{#if this.is_focused}}#89b4fa{{else}}transparent{{/if}};
+                  color: {{#if this.is_focused}}#1e1e2e{{else}}#cdd6f4{{/if}};
+                  cursor: pointer;
+                " onclick="glazewm.focus_workspace('{{this.name}}')">
+                  {{this.display_name}}
+                </span>
+              {{/each}}
+
+      # Center - Active window title
+      - type: "template"
+        styles:
+          flex_grow: 1
+          text_align: "center"
+          overflow: "hidden"
+          text_overflow: "ellipsis"
+          white_space: "nowrap"
+          padding: "0 20px"
+          color: "#a6adc8"
+        template: |
+          {{glazewm.focused_window.title}}
+
+      # Right - System info
+      - type: "row"
+        styles:
+          gap: "16px"
+          align_items: "center"
+        children:
+          # CPU
+          - type: "template"
+            styles:
+              color: "#f38ba8"
+            template: |
+              󰻠 {{round cpu.usage}}%
+
+          # Memory
+          - type: "template"
+            styles:
+              color: "#a6e3a1"
+            template: |
+              󰍛 {{round memory.usage}}%
+
+          # Network
+          - type: "template"
+            styles:
+              color: "#89b4fa"
+            template: |
+              {{#if network.is_connected}}󰖩{{else}}󰖪{{/if}}
+
+          # Battery (if present)
+          - type: "template"
+            styles:
+              color: "#f9e2af"
+            template: |
+              {{#if battery.is_present}}
+                {{#if (gt battery.level 80)}}󰁹{{else if (gt battery.level 60)}}󰂀{{else if (gt battery.level 40)}}󰁾{{else if (gt battery.level 20)}}󰁼{{else}}󰁺{{/if}} {{battery.level}}%
+              {{/if}}
+
+          # Date & Time
+          - type: "row"
+            styles:
+              gap: "12px"
+              padding_left: "12px"
+              border_left: "1px solid #45475a"
+            children:
+              - type: "template"
+                styles:
+                  color: "#cba6f7"
+                template: "{{date}}"
+              - type: "template"
+                styles:
+                  color: "#cdd6f4"
+                  font_weight: "bold"
+                template: "{{time}}"
