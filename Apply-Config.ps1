@@ -173,6 +173,11 @@ function Install-Prerequisites {
         $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
     }
     Write-Success "Chezmoi available"
+
+    # Update winget sources to prevent catalog errors
+    Write-Info "Updating WinGet sources..."
+    winget source update | Out-Null
+    Write-Success "WinGet sources updated"
 }
 
 function Apply-DscConfig {
