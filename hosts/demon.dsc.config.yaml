@@ -58,3 +58,7 @@ resources:
     type: Microsoft.DSC/Include
     properties:
       configurationFile: optional/audio/packages.dsc.config.yaml
+  - name: Media
+    type: Microsoft.DSC/Include
+    properties:
+      configurationFile: optional/media.dsc.config.yaml

@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+# Media profile - music and video players
+
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+
+resources:
+  # Music Streaming
+  - name: Spotify
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: Spotify.Spotify
+      source: winget
+
+  # Video Player
+  - name: VLC
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: VideoLAN.VLC
+      source: winget
