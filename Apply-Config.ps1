@@ -305,6 +305,19 @@ try {
     exit 1
 }
 
+# Set hostname if different from current
+if (-not $DotfilesOnly -and $hostConfig.hostname) {
+    $currentHostname = $env:COMPUTERNAME.ToLower()
+    $desiredHostname = $hostConfig.hostname.ToLower()
+
+    if ($currentHostname -ne $desiredHostname) {
+        Write-Step "Setting Hostname"
+        Write-Info "Renaming computer from '$currentHostname' to '$desiredHostname'"
+        Rename-Computer -NewName $hostConfig.hostname -Force
+        Write-Success "Hostname set to '$($hostConfig.hostname)' (restart required)"
+    }
+}
+
 # Apply debloat (only if -Debloat flag is passed)
 if ($Debloat -and -not $ProfilesOnly -and -not $DotfilesOnly -and $hostConfig.debloat.enabled) {
     Write-Step "Applying System Debloat"
