@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+# Core system - timezone, regional settings, etc.
+#
+# NOTE: After first apply, you may need to manually click "Sync now" in
+# Settings > Time & language > Date & time for automatic timezone to activate.
+# After that initial sync, it will work automatically.
+
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+
+resources:
+  # Timezone - Set to Automatic
+  - name: Enable Automatic Timezone
+    type: Microsoft.Windows/Registry
+    properties:
+      keyPath: HKLM\SYSTEM\CurrentControlSet\Services\tzautoupdate
+      valueName: Start
+      valueData:
+        DWord: 3
+
+  - name: Allow Location for Timezone
+    type: Microsoft.Windows/Registry
+    properties:
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location
+      valueName: Value
+      valueData:
+        String: Allow

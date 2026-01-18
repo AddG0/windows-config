@@ -1,0 +1,108 @@
+{
+  // Theme
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.iconTheme": "catppuccin-mocha",
+
+  // Auto-save
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+
+  // Font settings
+  "editor.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrains Mono', 'Fira Code', monospace",
+  "editor.fontSize": 14,
+  "editor.fontLigatures": true,
+  "editor.lineHeight": 1.5,
+
+  // Cursor
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorStyle": "line",
+  "editor.cursorWidth": 2,
+
+  // Scrolling
+  "editor.smoothScrolling": true,
+  "editor.fastScrollSensitivity": 5,
+  "workbench.list.smoothScrolling": true,
+  "workbench.list.fastScrollSensitivity": 5,
+
+  // GPU acceleration
+  "terminal.integrated.gpuAcceleration": "on",
+
+  // Line numbers (relative like Vim)
+  "editor.lineNumbers": "relative",
+
+  // Editor behavior
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.linkedEditing": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.renderWhitespace": "selection",
+  "editor.wordWrap": "off",
+  "editor.minimap.enabled": false,
+  "editor.stickyScroll.enabled": true,
+  "editor.inlayHints.enabled": "onUnlessPressed",
+  "editor.suggest.preview": true,
+  "editor.acceptSuggestionOnEnter": "smart",
+
+  // Diff editor
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.renderSideBySide": true,
+  "diffEditor.wordWrap": "off",
+
+  // Workbench
+  "workbench.startupEditor": "none",
+  "workbench.editor.enablePreview": false,
+  "workbench.tree.indent": 16,
+  "workbench.editor.highlightModifiedTabs": true,
+
+  // Workspace trust
+  "security.workspace.trust.enabled": true,
+  "security.workspace.trust.untrustedFiles": "prompt",
+
+  // Files
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.associations": {
+    "*.env.*": "dotenv",
+    "flake.lock": "json"
+  },
+
+  // Search
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.git": true
+  },
+
+  // Explorer
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.compactFolders": false,
+
+  // Updates
+  "update.mode": "default",
+  "extensions.autoUpdate": true,
+
+  // Zen mode
+  "zenMode.hideLineNumbers": false,
+  "zenMode.centerLayout": true,
+
+  // Accessibility
+  "editor.accessibilitySupport": "off",
+
+  // Terminal (Windows-specific)
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell"
+    }
+  },
+  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+  "terminal.integrated.fontSize": 12,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.scrollback": 10000
+}

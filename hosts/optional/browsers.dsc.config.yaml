@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+# Browsers
+
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+
+resources:
+  # Browser
+  - name: Google Chrome
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: Google.Chrome
+      source: winget

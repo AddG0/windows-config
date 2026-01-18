@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+# VS Code extensions
+
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+
+resources:
+  # Theme
+  - name: Catppuccin Theme
+    type: Microsoft.VSCode.Dsc/VSCodeExtension
+    properties:
+      Name: catppuccin.catppuccin-vsc
+      Exist: true
+
+  - name: Catppuccin Icons
+    type: Microsoft.VSCode.Dsc/VSCodeExtension
+    properties:
+      Name: catppuccin.catppuccin-vsc-icons
+      Exist: true
+
+  # Git
+  - name: GitLens
+    type: Microsoft.VSCode.Dsc/VSCodeExtension
+    properties:
+      Name: eamodio.gitlens
+      Exist: true
+
+  - name: Git Graph
+    type: Microsoft.VSCode.Dsc/VSCodeExtension
+    properties:
+      Name: mhutchie.git-graph
+      Exist: true
+
+  # Formatting
+  - name: Prettier
+    type: Microsoft.VSCode.Dsc/VSCodeExtension
+    properties:
+      Name: esbenp.prettier-vscode
+      Exist: true
+
+  # Productivity
+  - name: Error Lens
+    type: Microsoft.VSCode.Dsc/VSCodeExtension
+    properties:
+      Name: usernamehw.errorlens
+      Exist: true
+
+  - name: Todo Tree
+    type: Microsoft.VSCode.Dsc/VSCodeExtension
+    properties:
+      Name: gruntfuggly.todo-tree
+      Exist: true

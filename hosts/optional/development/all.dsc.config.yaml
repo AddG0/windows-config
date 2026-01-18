@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+# Development profile - includes all development configs
+
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+
+resources:
+  - name: Development Packages
+    type: Microsoft.DSC/Include
+    properties:
+      configurationFile: optional/development/packages.dsc.config.yaml
+
+  # VS Code Extensions - disabled (Microsoft.VSCode.Dsc not available in DSC v3)
+  # Install manually: code --install-extension catppuccin.catppuccin-vsc
+  # Or use: .\Apply-Config.ps1 to run extension install script

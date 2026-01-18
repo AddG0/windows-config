@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+# Core profile - includes all base system configs
+# Import this single file to get all core configurations
+
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+
+resources:
+  - name: Core Packages
+    type: Microsoft.DSC/Include
+    properties:
+      configurationFile: core/packages.dsc.config.yaml
+
+  - name: Core Settings
+    type: Microsoft.DSC/Include
+    properties:
+      configurationFile: core/settings.dsc.config.yaml
+
+  - name: Core System
+    type: Microsoft.DSC/Include
+    properties:
+      configurationFile: core/system.dsc.config.yaml

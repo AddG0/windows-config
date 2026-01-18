@@ -1,0 +1,34 @@
+{
+  "WPFTweaks": [
+    "WPFTweaksRestorePoint",
+    "WPFTweaksDisableEdge",
+    "WPFTweaksActivity",
+    "WPFTweaksConsumerFeatures",
+    "WPFTweaksDVR",
+    "WPFTweaksTelemetry",
+    "WPFTweaksLocation",
+    "WPFTweaksEndTaskOnTaskbar",
+    "WPFTweaksEdgeDebloat",
+    "WPFTweaksDiskCleanup",
+    "WPFTweaksDisableExplorerAutoDiscovery",
+    "WPFTweaksPowershell7Tele",
+    "WPFTweaksDeleteTempFiles",
+    "WPFTweaksServices",
+
+    "WPFTweaksAH",
+    "WPFTweaksHiber",
+    "WPFTweaksHome",
+    "WPFTweaksLoc",
+    "WPFTweaksOO",
+    "WPFTweaksTele",
+    "WPFTweaksWifi",
+    "WPFTweaksRemoveOnedrive",
+    "WPFTweaksRightClickMenu",
+    "WPFTweaksRemoveCopilot"
+  ],
+  "Install": [],
+  "WPFInstall": [],
+  "WPFFeature": [
+    "WPFFeaturesdotnet"
+  ]
+}

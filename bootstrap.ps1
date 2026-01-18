@@ -1,104 +1,102 @@
-# Windows Dotfiles Bootstrap Script
+# Windows Declarative Configuration Bootstrap
 # Usage: irm https://raw.githubusercontent.com/AddG0/windows-config/main/bootstrap.ps1 | iex
+#
+# This script bootstraps a fresh Windows installation by:
+# 1. Installing Git
+# 2. Cloning this repository
+# 3. Running Apply-Config.ps1
 
 param(
-    [string]$HostName = "demon-windows",
-    [string]$UserName = "addg",
+    [string]$HostName = "demon",
     [string]$RepoUrl = "https://github.com/AddG0/windows-config",
+    [string]$Branch = "main",
     [switch]$SkipDebloat
 )
 
 $ErrorActionPreference = "Stop"
-$DotfilesPath = "$env:USERPROFILE\.dotfiles\windows"
+$ConfigPath = "$env:USERPROFILE\windows-config"
 
-Write-Host "=== Windows Dotfiles Bootstrap ===" -ForegroundColor Cyan
-Write-Host "Host: $HostName | User: $UserName" -ForegroundColor Gray
+Write-Host ""
+Write-Host "Windows Declarative Configuration - Bootstrap" -ForegroundColor Cyan
+Write-Host "==============================================" -ForegroundColor Cyan
+Write-Host "Host: $HostName" -ForegroundColor Gray
+Write-Host ""
 
-# Ensure running as admin
+# ============================================
+# Check Administrator
+# ============================================
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Host "ERROR: Run this script as Administrator!" -ForegroundColor Red
+    Write-Host "ERROR: This script requires Administrator privileges." -ForegroundColor Red
+    Write-Host "Please run PowerShell as Administrator and try again." -ForegroundColor Yellow
     exit 1
 }
 
-# Step 1: Install prerequisites
-Write-Host "`n[1/5] Installing prerequisites..." -ForegroundColor Yellow
+# ============================================
+# Step 1: Install Git (if needed)
+# ============================================
+Write-Host "[1/4] Checking Git..." -ForegroundColor Yellow
 
-$packages = @(
-    @{id = "Git.Git"; name = "Git"},
-    @{id = "twpayne.chezmoi"; name = "Chezmoi"}
-)
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+    Write-Host "  Installing Git via WinGet..." -ForegroundColor Gray
+    winget install -e --id Git.Git --source winget --accept-package-agreements --accept-source-agreements --disable-interactivity
 
-foreach ($pkg in $packages) {
-    $installed = winget list --id $pkg.id 2>$null
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "  Installing $($pkg.name)..." -ForegroundColor Gray
-        winget install -e --id $pkg.id --accept-package-agreements --accept-source-agreements
-    } else {
-        Write-Host "  $($pkg.name) already installed" -ForegroundColor DarkGray
+    # Refresh PATH
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
+
+    if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+        Write-Host "ERROR: Git installation failed." -ForegroundColor Red
+        exit 1
     }
 }
+Write-Host "  [OK] Git available" -ForegroundColor Green
 
-# Refresh PATH
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+# ============================================
+# Step 2: Clone Repository
+# ============================================
+Write-Host "`n[2/4] Cloning configuration repository (HTTPS)..." -ForegroundColor Yellow
 
-# Step 2: Clone dotfiles repo
-Write-Host "`n[2/5] Cloning dotfiles repository..." -ForegroundColor Yellow
-
-if (Test-Path $DotfilesPath) {
-    Write-Host "  Dotfiles already exist, pulling latest..." -ForegroundColor Gray
-    Push-Location $DotfilesPath
-    git pull
+if (Test-Path $ConfigPath) {
+    Write-Host "  Repository exists, pulling latest..." -ForegroundColor Gray
+    Push-Location $ConfigPath
+    git fetch origin
+    git reset --hard "origin/$Branch"
     Pop-Location
 } else {
-    git clone $RepoUrl $DotfilesPath
+    Write-Host "  Cloning from $RepoUrl..." -ForegroundColor Gray
+    git clone --branch $Branch $RepoUrl $ConfigPath
 }
+Write-Host "  [OK] Repository ready at: $ConfigPath" -ForegroundColor Green
 
-# Step 3: Apply system-level configuration (debloat)
-if (-not $SkipDebloat) {
-    Write-Host "`n[3/5] Applying system configuration (WinUtil debloat)..." -ForegroundColor Yellow
+# ============================================
+# Step 3: Run Apply-Config
+# ============================================
+Write-Host "`n[3/4] Applying configuration..." -ForegroundColor Yellow
 
-    $hostConfig = "$DotfilesPath\hosts\windows\$HostName\winutil.json"
-    $defaultConfig = "$DotfilesPath\hosts\common\core\winutil.json"
+$applyArgs = @("-Debloat")  # Run debloat on bootstrap
+if ($HostName) { $applyArgs += "-HostName", $HostName }
+if ($SkipDebloat) { $applyArgs = $applyArgs | Where-Object { $_ -ne "-Debloat" } }
 
-    $configToUse = if (Test-Path $hostConfig) { $hostConfig } else { $defaultConfig }
+& "$ConfigPath\Apply-Config.ps1" @applyArgs
 
-    if (Test-Path $configToUse) {
-        Write-Host "  Using config: $configToUse" -ForegroundColor Gray
-        iex "& { $(irm christitus.com/win) } -Config `"$configToUse`" -Run"
-    } else {
-        Write-Host "  No WinUtil config found, skipping debloat" -ForegroundColor DarkGray
-    }
-} else {
-    Write-Host "`n[3/5] Skipping debloat (--SkipDebloat)" -ForegroundColor DarkGray
-}
+# ============================================
+# Step 4: Switch remote to SSH
+# ============================================
+Write-Host "`n[4/4] Switching remote to SSH..." -ForegroundColor Yellow
+Push-Location $ConfigPath
+$sshUrl = "git@github.com:AddG0/windows-config.git"
+git remote set-url origin $sshUrl
+Write-Host "  [OK] Remote switched to: $sshUrl" -ForegroundColor Green
+Pop-Location
 
-# Step 4: Install applications via WinGet DSC
-Write-Host "`n[4/5] Installing applications..." -ForegroundColor Yellow
-
-$appConfigs = @(
-    "$DotfilesPath\hosts\common\core\apps.winget",
-    "$DotfilesPath\hosts\windows\$HostName\apps.winget",
-    "$DotfilesPath\home\common\optional\ricing\apps.winget",
-    "$DotfilesPath\home\primary\$HostName\apps.winget"
-)
-
-foreach ($config in $appConfigs) {
-    if (Test-Path $config) {
-        Write-Host "  Applying: $config" -ForegroundColor Gray
-        winget configure $config --accept-configuration-agreements
-    }
-}
-
-# Step 5: Apply user dotfiles via Chezmoi
-Write-Host "`n[5/5] Applying user dotfiles..." -ForegroundColor Yellow
-
-# Initialize chezmoi with the home subdirectory
-chezmoi init --source "$DotfilesPath\home" --apply
-
-Write-Host "`n=== Bootstrap Complete ===" -ForegroundColor Green
-Write-Host "Restart your terminal or PC for all changes to take effect." -ForegroundColor Cyan
+Write-Host ""
+Write-Host "Bootstrap complete!" -ForegroundColor Green
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
-Write-Host "  1. Sign into 1Password and enable SSH agent" -ForegroundColor Gray
-Write-Host "  2. Start GlazeWM: Alt+Enter to open terminal" -ForegroundColor Gray
-Write-Host "  3. Set GlazeWM to run at startup" -ForegroundColor Gray
+Write-Host "  1. Restart your terminal or PC" -ForegroundColor Gray
+Write-Host "  2. Sign into 1Password and enable SSH agent (if not already)" -ForegroundColor Gray
+Write-Host "  3. Run 'ssh -T git@github.com' to verify SSH works" -ForegroundColor Gray
+Write-Host ""
+Write-Host "To re-apply configuration:" -ForegroundColor Yellow
+Write-Host "  cd $ConfigPath" -ForegroundColor Gray
+Write-Host "  .\Apply-Config.ps1" -ForegroundColor Gray
+Write-Host ""

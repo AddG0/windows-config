@@ -1,7 +1,8 @@
 # Chezmoi configuration
 # This template is processed during `chezmoi init`
 
-{{- $email := promptStringOnce . "email" "Git email address" -}}
+{{ $email := promptStringOnce . "email" "Git email address" -}}
+sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 [data]
     hostname = {{ .chezmoi.hostname | quote }}

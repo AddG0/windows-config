@@ -1,0 +1,63 @@
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+# Core packages - essential tools installed on all hosts
+
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+
+resources:
+  # Version Control
+  - name: Git
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: Git.Git
+      source: winget
+
+  - name: Chezmoi
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: twpayne.chezmoi
+      source: winget
+
+  # Terminal
+  - name: WezTerm
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: wez.wezterm
+      source: winget
+
+  - name: Oh My Posh
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: JanDeDobbeleer.OhMyPosh
+      source: winget
+
+  - name: JetBrainsMono Nerd Font
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: DEVCOM.JetBrainsMonoNerdFont
+      source: winget
+
+  # Security
+  - name: 1Password
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: AgileBits.1Password
+      source: winget
+
+  - name: 1Password CLI
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: AgileBits.1Password.CLI
+      source: winget
+
+  # Utilities
+  - name: PowerToys
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: Microsoft.PowerToys
+      source: winget
+
+  - name: 7-Zip
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: 7zip.7zip
+      source: winget

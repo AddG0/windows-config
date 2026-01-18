@@ -1,0 +1,30 @@
+[user]
+    name = addg
+    email = {{ .email }}
+
+[core]
+    autocrlf = true
+    editor = code --wait
+    sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true
+
+[credential]
+    helper = manager
+
+[gpg]
+    format = ssh
+
+[gpg "ssh"]
+    program = "C:/Users/addga/AppData/Local/1Password/app/8/op-ssh-sign.exe"
+
+[commit]
+    gpgsign = true
+

@@ -1,0 +1,56 @@
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+# Host configuration for demon (Gaming PC)
+# Single source of truth - DSC resources + orchestration settings
+
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+
+metadata:
+  hostname: demon
+  description: Primary gaming and development workstation
+
+  # WinUtil debloat settings
+  debloat:
+    enabled: true
+    config: lib/winutil.json
+
+  # Chezmoi dotfiles settings
+  dotfiles:
+    enabled: true
+    features:
+      ricing: true
+      development: true
+      gaming: true
+
+  # User settings (for templating)
+  user:
+    name: addg
+    email: ""
+
+resources:
+  # ============================================
+  # Core - Base system (always first)
+  # ============================================
+  - name: Core
+    type: Microsoft.DSC/Include
+    properties:
+      configurationFile: core/all.dsc.config.yaml
+
+  # ============================================
+  # Optional
+  # ============================================
+  - name: Gaming Packages
+    type: Microsoft.DSC/Include
+    properties:
+      configurationFile: optional/gaming/packages.dsc.config.yaml
+  - name: Ricing Packages
+    type: Microsoft.DSC/Include
+    properties:
+      configurationFile: optional/ricing/packages.dsc.config.yaml
+  - name: Development
+    type: Microsoft.DSC/Include
+    properties:
+      configurationFile: optional/development/all.dsc.config.yaml
+  - name: Browsers
+    type: Microsoft.DSC/Include
+    properties:
+      configurationFile: optional/browsers.dsc.config.yaml

@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+# Gaming profile - game launchers, streaming, GPU tools
+
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+
+resources:
+  # Game Launchers
+  - name: Steam
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: Valve.Steam
+      source: winget
+
+  # Valorant - DISABLED: WinGet download error, install manually
+  # - name: Valorant
+  #   type: Microsoft.WinGet.DSC/WinGetPackage
+  #   properties:
+  #     id: RiotGames.Valorant.AP
+  #     source: winget
+
+  # Communication
+  - name: Discord
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: Discord.Discord
+      source: winget
+
+  # GPU & Hardware - GeForce Experience not in WinGet, install via NVIDIA website
+  # - name: NVIDIA GeForce Experience
+  #   type: Microsoft.WinGet.DSC/WinGetPackage
+  #   properties:
+  #     id: Nvidia.GeForceExperience
+  #     source: winget
+
+  # Streaming & Recording
+  - name: OBS Studio
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: OBSProject.OBSStudio
+      source: winget

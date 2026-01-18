@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+# Ricing profile - window manager, status bar, visual customization
+
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+
+resources:
+  # Tiling Window Manager
+  - name: GlazeWM
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: glzr-io.glazewm
+      source: winget
+
+  - name: Zebar
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: glzr-io.zebar
+      source: winget
+
+  # Visual Effects
+  - name: TranslucentTB
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: CharlesMilette.TranslucentTB
+      source: winget
+
+  - name: MicaForEveryone
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: MicaForEveryone.MicaForEveryone
+      source: winget
+
+  # Fonts
+  - name: JetBrains Mono Nerd Font
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: DEVCOM.JetBrainsMonoNerdFont
+      source: winget

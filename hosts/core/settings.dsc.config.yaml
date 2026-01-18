@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+# Core settings - Windows UI and developer settings
+
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+
+resources:
+  # Developer Settings
+  - name: Enable Developer Mode
+    type: Microsoft.Windows.Developer/DeveloperMode
+    properties:
+      Ensure: Present
+
+  # Appearance
+  - name: Enable Dark Mode
+    type: Microsoft.Windows.Developer/EnableDarkMode
+    properties:
+      Ensure: Present
+      RestartExplorer: true
+
+  # Windows Explorer
+  - name: Explorer Settings
+    type: Microsoft.Windows.Developer/WindowsExplorer
+    properties:
+      FileExtensions: Show
+      HiddenFiles: Show
+      ItemCheckBoxes: Hide
+
+  # Taskbar - DISABLED: Known bug with WidgetsButton causes "unauthorized operation"
+  # See: https://github.com/microsoft/winget-dsc/issues/67
+  # - name: Taskbar Settings
+  #   type: Microsoft.Windows.Developer/Taskbar
+  #   properties:
+  #     Alignment: Left
+  #     HideLabelsMode: Always
+  #     SearchboxMode: Hide
+  #     TaskViewButton: Hide
+  #     WidgetsButton: Hide

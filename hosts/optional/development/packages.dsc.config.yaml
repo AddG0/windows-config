@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+# Development packages - editors, tools, browsers
+
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+
+resources:
+  # Editors
+  - name: Visual Studio Code
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: Microsoft.VisualStudioCode
+      source: winget
+
+  # AI Tools
+  - name: Claude Code CLI
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: Anthropic.ClaudeCode
+      source: winget
+
+  # Developer Settings
+  - name: Enable Long Path Support
+    type: Microsoft.Windows.Developer/EnableLongPathSupport
+    properties:
+      Ensure: Present
