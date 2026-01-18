@@ -1,13 +1,3 @@
 # Ignore README files
 README.md
 *.md
-
-# Conditional ignores based on features
-{{- if not .features.ricing }}
-.glzr/
-{{- end }}
-
-{{- if not .features.development }}
-.config/nvim/
-AppData/Local/nvim/
-{{- end }}

@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+# Audio profile - audio routing, mixing, and processing
+
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+
+resources:
+  # Virtual Audio Mixer
+  - name: VoiceMeeter Potato
+    type: Microsoft.WinGet.DSC/WinGetPackage
+    properties:
+      id: VB-Audio.Voicemeeter.Potato
+      source: winget

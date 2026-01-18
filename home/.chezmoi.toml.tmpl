@@ -9,12 +9,6 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
     username = "addg"
     email = {{ $email | quote }}
 
-    # Feature flags - enable/disable modules
-    [data.features]
-        ricing = true      # GlazeWM, Zebar, etc.
-        development = false # Dev tools
-        gaming = true      # Gaming optimizations
-
 [onepassword]
     prompt = false
 

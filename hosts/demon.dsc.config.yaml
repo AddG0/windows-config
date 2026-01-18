@@ -54,3 +54,7 @@ resources:
     type: Microsoft.DSC/Include
     properties:
       configurationFile: optional/browsers.dsc.config.yaml
+  - name: Audio
+    type: Microsoft.DSC/Include
+    properties:
+      configurationFile: optional/audio/packages.dsc.config.yaml
